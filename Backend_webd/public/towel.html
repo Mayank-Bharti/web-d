@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Towel</title>
-    <link rel="stylesheet" href="\towel.css">
+    <link rel="stylesheet" href="\css\products.css">
     <link rel="icon" href="\images\icon.jpg" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="\images\icon.jpg">
 </head>
@@ -16,60 +16,67 @@
     <main id="productContainer"></main>
 
     <footer>
-        <p>Footer content goes here</p>
+        <p>&copy; 2024 Humble Home. All rights reserved.</p>
     </footer>
 
     <script>
-        fetch('/Product')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch data');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const productContainer = document.getElementById('productContainer');
-                if (productContainer) {
-                    data.forEach(item => {
-                        const productCard = document.createElement('div');
-                        productCard.classList.add('product');
+fetch('/Product')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const productContainer = document.getElementById('productContainer');
+        if (productContainer) {
+            if (data && data.length > 0) { // Check if data is not empty
+                data.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.classList.add('product');
 
-                        const productImage = document.createElement('img');
-                        productImage.src = item.image; // Assuming each item has an "image" property
-                        productImage.alt = item.name; // Add alt attribute for accessibility
+                    const productImage = document.createElement('img');
+                    productImage.src = product.image;
+                    productImage.alt = product.brand;
 
-                        const productInfo = document.createElement('div');
-                        productInfo.classList.add('product-info');
+                    const productInfo = document.createElement('div');
+                    productInfo.classList.add('product-info');
 
-                        const productName = document.createElement('h2');
-                        productName.textContent = item.name;
+                    const productName = document.createElement('h2');
+                    productName.textContent = product.brand;
 
-                        const productDescription = document.createElement('p');
-                        productDescription.textContent = item.description;
+                    const productDescription = document.createElement('p');
+                    productDescription.textContent = product.productType;
 
-                        const productPrice = document.createElement('p');
-                        productPrice.textContent = `Price: $${item.price}`;
+                    const productPrice = document.createElement('p');
+                    productPrice.textContent = `Price: $${product.price}`;
 
-                        const productButton = document.createElement('button');
-                        productButton.textContent = 'Add to Cart';
+                    const productButton = document.createElement('button');
+                    productButton.textContent = 'Add to Cart';
 
-                        productInfo.appendChild(productName);
-                        productInfo.appendChild(productDescription);
-                        productInfo.appendChild(productPrice);
-                        productInfo.appendChild(productButton);
+                    productInfo.appendChild(productName);
+                    productInfo.appendChild(productDescription);
+                    productInfo.appendChild(productPrice);
+                    productInfo.appendChild(productButton);
 
-                        productCard.appendChild(productImage);
-                        productCard.appendChild(productInfo);
+                    productCard.appendChild(productImage);
+                    productCard.appendChild(productInfo);
 
-                        productContainer.appendChild(productCard);
-                    });
-                } else {
-                    console.error('Element with ID "productContainer" not found');
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+                    productContainer.appendChild(productCard);
+                });
+            } else {
+                // Display a message if no products are available
+                productContainer.textContent = 'No products available';
+            }
+        } else {
+            console.error('Element with ID "productContainer" not found');
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching or parsing data:', error);
+    });
+
+       
     </script>
 </body>
 </html>

@@ -27,10 +27,10 @@ app.get("/Register", (req, res) => {
 });
 app.get("/Product", async(req, res) => {
     try {
-        // Fetch all items from the "item" collection in MongoDB
-        const items = await Product.find({});
+        // Fetch all items from the "product" collection in MongoDB
+        const products = await Product.find({});
         // Send the items data as a JSON response to the frontend
-        res.json(items);
+        res.json(products);
     } catch (error) {
         console.error('Error fetching items:', error);
         res.status(500).json({ error: 'An error occurred while fetching items' });
