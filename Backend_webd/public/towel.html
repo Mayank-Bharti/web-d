@@ -20,63 +20,59 @@
     </footer>
 
     <script>
-fetch('/Product')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch data');
-        }
-        return response.json();
-    })
-    .then(data => {
-        const productContainer = document.getElementById('productContainer');
-        if (productContainer) {
-            if (data && data.length > 0) { // Check if data is not empty
-                data.forEach(product => {
-                    const productCard = document.createElement('div');
-                    productCard.classList.add('product');
+        fetch('/Product')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const productContainer = document.getElementById('productContainer');
+                if (productContainer) {
+                    data.forEach(item => {
+                        const productCard = document.createElement('div');
+                        productCard.classList.add('product');
 
-                    const productImage = document.createElement('img');
-                    productImage.src = product.image;
-                    productImage.alt = product.brand;
+                        const productImage = document.createElement('img');
+                        productImage.src = item.Image; // Assuming each item has an "image" property
 
-                    const productInfo = document.createElement('div');
-                    productInfo.classList.add('product-info');
+                        const productInfo = document.createElement('div');
+                        productInfo.classList.add('product-info');
 
-                    const productName = document.createElement('h2');
-                    productName.textContent = product.brand;
+                        const productName = document.createElement('h2');
+                        productName.textContent = item.name;
 
-                    const productDescription = document.createElement('p');
-                    productDescription.textContent = product.productType;
+                        const productDescription = document.createElement('p');
+                        productDescription.textContent = item.description;
+                        const productCategory= document.createElement('p');
+                        productCategory.textContent = item.category;
+                        
 
-                    const productPrice = document.createElement('p');
-                    productPrice.textContent = `Price: $${product.price}`;
+                        const productPrice = document.createElement('p');
+                        productPrice.textContent = `Price: $${item.price}`;
 
-                    const productButton = document.createElement('button');
-                    productButton.textContent = 'Add to Cart';
+                        const productButton = document.createElement('button');
+                        productButton.textContent = 'Add to Cart';
 
-                    productInfo.appendChild(productName);
-                    productInfo.appendChild(productDescription);
-                    productInfo.appendChild(productPrice);
-                    productInfo.appendChild(productButton);
+                        productInfo.appendChild(productName);
+                        productInfo.appendChild(productDescription);
+                        productInfo.appendChild(productCategory);
+                        productInfo.appendChild(productPrice);
+                        productInfo.appendChild(productButton);
 
-                    productCard.appendChild(productImage);
-                    productCard.appendChild(productInfo);
+                        productCard.appendChild(productImage);
+                        productCard.appendChild(productInfo);
 
-                    productContainer.appendChild(productCard);
-                });
-            } else {
-                // Display a message if no products are available
-                productContainer.textContent = 'No products available';
-            }
-        } else {
-            console.error('Element with ID "productContainer" not found');
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching or parsing data:', error);
-    });
-
-       
+                        productContainer.appendChild(productCard);
+                    });
+                } else {
+                    console.error('Element with ID "productContainer" not found');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
     </script>
 </body>
 </html>
