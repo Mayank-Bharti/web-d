@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Towel</title>
-    <link rel="stylesheet" href="\css\products.css">
+    <link rel="stylesheet" href="\css\towel.css">
     <link rel="icon" href="\images\icon.jpg" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="\images\icon.jpg">
 </head>
@@ -15,8 +15,7 @@
     
     <main id="productContainer"></main>
     <script>
-        // Assuming you're using Fetch API to retrieve data from your server
-fetch('/Product')
+       fetch('/Product')
     .then(response => {
         if (!response.ok) {
             throw new Error('Failed to fetch data');
@@ -46,9 +45,22 @@ fetch('/Product')
                 const productPrice = document.createElement('p');
                 productPrice.textContent = `Price: $${product.Price}`;
 
+                const productRating = document.createElement('p');
+                productRating.textContent = `Rating: ${product.Rating}`;
+
+                const addToCartButton = document.createElement('button');
+                addToCartButton.textContent = 'Add to Cart';
+                addToCartButton.classList.add('add-to-cart-button');
+                addToCartButton.addEventListener('click', () => {
+                    // Add logic to handle adding product to cart
+                    console.log(`Added ${product.Brand} to cart`);
+                });
+
                 productInfo.appendChild(productName);
                 productInfo.appendChild(productDescription);
                 productInfo.appendChild(productPrice);
+                productInfo.appendChild(productRating);
+                productInfo.appendChild(addToCartButton);
 
                 productCard.appendChild(productImage);
                 productCard.appendChild(productInfo);
@@ -69,56 +81,6 @@ fetch('/Product')
         <p>&copy; 2024 Humble Home. All rights reserved.</p>
     </footer>
 
-    <!-- <script>
-        // Fetch products from the backend
-        fetch('/Product')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch data');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const productContainer = document.getElementById('productContainer');
-                if (productContainer) {
-                    // Loop through the fetched products and create HTML elements to display them
-                    data.forEach(product => {
-                        const productCard = document.createElement('div');
-                        productCard.classList.add('product-card');
-
-                        // Create image element
-                        const productImage = document.createElement('img');
-                        productImage.src = product.Image;
-                        productImage.alt = product.Brand;
-
-                        // Create name element
-                        const productName = document.createElement('h2');
-                        productName.textContent = product.Brand;
-
-                        // Create product type element
-                        const productType = document.createElement('p');
-                        productType.textContent = product["Product Type"];
-
-                        // Create price element
-                        const productPrice = document.createElement('p');
-                        productPrice.textContent = `Price: $${product.Price}`;
-
-                        // Append elements to product card
-                        productCard.appendChild(productImage);
-                        productCard.appendChild(productName);
-                        productCard.appendChild(productType);
-                        productCard.appendChild(productPrice);
-
-                        // Append product card to product container
-                        productContainer.appendChild(productCard);
-                    });
-                } else {
-                    console.error('Element with ID "productContainer" not found');
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-    </script> -->
+    
 </body>
 </html>
