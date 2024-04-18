@@ -14,12 +14,63 @@
     </header>
     
     <main id="productContainer"></main>
+    <script>
+        // Assuming you're using Fetch API to retrieve data from your server
+fetch('/Product')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const productContainer = document.getElementById('productContainer');
+        if (productContainer) {
+            data.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product');
+
+                const productImage = document.createElement('img');
+                productImage.src = product.Image;
+                productImage.alt = `Product Image: ${product.Brand}`;
+
+                const productInfo = document.createElement('div');
+                productInfo.classList.add('product-info');
+
+                const productName = document.createElement('h2');
+                productName.textContent = product.Brand;
+
+                const productDescription = document.createElement('p');
+                productDescription.textContent = product["Product Type"];
+
+                const productPrice = document.createElement('p');
+                productPrice.textContent = `Price: $${product.Price}`;
+
+                productInfo.appendChild(productName);
+                productInfo.appendChild(productDescription);
+                productInfo.appendChild(productPrice);
+
+                productCard.appendChild(productImage);
+                productCard.appendChild(productInfo);
+
+                productContainer.appendChild(productCard);
+            });
+        } else {
+            console.error('Element with ID "productContainer" not found');
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+
+    </script>
 
     <footer>
         <p>&copy; 2024 Humble Home. All rights reserved.</p>
     </footer>
 
-    <script>
+    <!-- <script>
+        // Fetch products from the backend
         fetch('/Product')
             .then(response => {
                 if (!response.ok) {
@@ -30,40 +81,35 @@
             .then(data => {
                 const productContainer = document.getElementById('productContainer');
                 if (productContainer) {
-                    data.forEach(item => {
+                    // Loop through the fetched products and create HTML elements to display them
+                    data.forEach(product => {
                         const productCard = document.createElement('div');
-                        productCard.classList.add('product');
+                        productCard.classList.add('product-card');
 
+                        // Create image element
                         const productImage = document.createElement('img');
-                        productImage.src = item.Image; // Assuming each item has an "image" property
+                        productImage.src = product.Image;
+                        productImage.alt = product.Brand;
 
-                        const productInfo = document.createElement('div');
-                        productInfo.classList.add('product-info');
-
+                        // Create name element
                         const productName = document.createElement('h2');
-                        productName.textContent = item.name;
+                        productName.textContent = product.Brand;
 
-                        const productDescription = document.createElement('p');
-                        productDescription.textContent = item.description;
-                        const productCategory= document.createElement('p');
-                        productCategory.textContent = item.category;
-                        
+                        // Create product type element
+                        const productType = document.createElement('p');
+                        productType.textContent = product["Product Type"];
 
+                        // Create price element
                         const productPrice = document.createElement('p');
-                        productPrice.textContent = `Price: $${item.price}`;
+                        productPrice.textContent = `Price: $${product.Price}`;
 
-                        const productButton = document.createElement('button');
-                        productButton.textContent = 'Add to Cart';
-
-                        productInfo.appendChild(productName);
-                        productInfo.appendChild(productDescription);
-                        productInfo.appendChild(productCategory);
-                        productInfo.appendChild(productPrice);
-                        productInfo.appendChild(productButton);
-
+                        // Append elements to product card
                         productCard.appendChild(productImage);
-                        productCard.appendChild(productInfo);
+                        productCard.appendChild(productName);
+                        productCard.appendChild(productType);
+                        productCard.appendChild(productPrice);
 
+                        // Append product card to product container
                         productContainer.appendChild(productCard);
                     });
                 } else {
@@ -73,6 +119,6 @@
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
-    </script>
+    </script> -->
 </body>
 </html>

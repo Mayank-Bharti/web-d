@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/Register", (req, res) => {
-    res.sendFile(path.join(__dirname, "../models/user_register.js"));
+    res.sendFile(path.join(__dirname, "../public/register.html"));
 });
 app.get("/Product", async(req, res) => {
     try {
