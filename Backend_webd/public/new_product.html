@@ -152,7 +152,7 @@
                 <div class="dropdown-content">
                     <ul>
                         <button>Table Lamps</button>
-                        <button>Ceiling lights</button>
+                        <button id="led">Ceiling lights</button>
                         <button>Floor Lamps</button>
                         
                         <!-- Add more items as needed -->
@@ -184,6 +184,16 @@
         });
         
  </script> 
+ <script>
+    const ledbutton = document.getElementById('led');
+   // const itemsList = document.getElementById('itemsList');
+
+    ledbutton.addEventListener('click',  () => {
+        window.location.href = '/led.html'; 
+     
+    });
+    
+</script> 
 </body>
 </html>
 
