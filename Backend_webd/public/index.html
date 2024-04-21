@@ -137,22 +137,35 @@
 .search-button:hover {
   background-color: #0056b3;
 }
-/* Existing CSS code */
-
-/* Heart icon style */
-.heart {
-    color: red; /* Change the color of the heart */
-    font-size: 30px; /* Adjust the size of the heart */
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Styling for wishlist button */
-.wishlist-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
+/* Button styles */
+.wishlist-btn {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
+.heart-icon {
+  width: 30px;
+  height: 30px;
+  fill: white;
+  transition: fill 0.3s ease;
+}
+
+.heart-icon:hover {
+  fill: red;
+}
+
+.wishlist-btn:focus {
+  outline: none;
+}
 
 </style>
     <title>Humble Home</title>
@@ -166,7 +179,11 @@
              <a href="\contact.html">Contact</a>
              <a href="\register.html">Register</a>
              <a href="\products.html" id="menu">Menu</a>
-             <button class="wishlist-button"><span class="heart">&hearts;</span></button>
+             <button class="wishlist-btn">
+                <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </button>
              <div class="search-container">
                 <form action="/search" method="GET" class="search-form">
                     <input type="text" name="q" placeholder="Search..." class="search-input">
@@ -332,5 +349,6 @@ searchProducts('/towel.html')
     });
 
     </script>
+    <script src="\js\wishlist.js"></script>
 </body>
 </html>

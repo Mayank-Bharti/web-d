@@ -48,19 +48,21 @@
                 const productRating = document.createElement('p');
                 productRating.textContent = `Rating: ${product.Rating}`;
 
-                const addToCartButton = document.createElement('button');
-                addToCartButton.textContent = 'Add to Cart';
-                addToCartButton.classList.add('add-to-cart-button');
-                addToCartButton.addEventListener('click', () => {
-                    // Add logic to handle adding product to cart
-                    console.log(`Added ${product.Brand} to cart`);
+                const addToWishlistButton = document.createElement('button');
+                addToWishlistButton.textContent = 'Add to Wishlist';
+                addToWishlistButton.classList.add('add-to-wishlist-button');
+                addToWishlistButton.dataset.productName = product.Brand; // Set product name as dataset
+
+                addToWishlistButton.addEventListener('click', () => {
+                    addToWishlist(product.Brand); // Call addToWishlist function
                 });
 
                 productInfo.appendChild(productName);
                 productInfo.appendChild(productDescription);
                 productInfo.appendChild(productPrice);
                 productInfo.appendChild(productRating);
-                productInfo.appendChild(addToCartButton);
+                productInfo.appendChild(addToWishlistButton); // Append Add to Wishlist button
+
 
                 productCard.appendChild(productImage);
                 productCard.appendChild(productInfo);
@@ -75,6 +77,7 @@
         console.error('Error fetching data:', error);
     });
     </script>
+     <script src="\js\wishlist.js"></script>
 
     <footer>
         <p>&copy; 2024 Humble Home. All rights reserved.</p>
