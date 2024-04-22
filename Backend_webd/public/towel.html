@@ -14,72 +14,96 @@
     </header>
     
     <main id="productContainer"></main>
-    <script>
-       fetch('/Product')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch data');
+   <!-- Inside the <body> section of towel.html -->
+
+<script>
+    function addToWishlist(productName, productImage, productDescription, productPrice) {
+        // Get existing wishlist from local storage or initialize an empty array
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+        // Check if the product is already in the wishlist
+        if (wishlist.find(product => product.Brand === productName)) {
+            alert('This product is already in your wishlist!');
+            return;
         }
-        return response.json();
-    })
-    .then(data => {
-        const productContainer = document.getElementById('productContainer');
-        if (productContainer) {
-            data.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.classList.add('product');
 
-                const productImage = document.createElement('img');
-                productImage.src = product.Image;
-                productImage.alt = `Product Image: ${product.Brand}`;
+        // If not, add the product to the wishlist
+        wishlist.push({ 
+            'Brand': productName,
+            'Image': productImage,
+            'Product Type': productDescription,
+            'Price': productPrice
+        });
 
-                const productInfo = document.createElement('div');
-                productInfo.classList.add('product-info');
+        // Store the updated wishlist back to local storage
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
 
-                const productName = document.createElement('h2');
-                productName.textContent = product.Brand;
+        // Notify the user that the product has been added to the wishlist
+        alert('Product added to wishlist!');
+    }
 
-                const productDescription = document.createElement('p');
-                productDescription.textContent = product["Product Type"];
+    fetch('/Product')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const productContainer = document.getElementById('productContainer');
+            if (productContainer) {
+                data.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.classList.add('product');
 
-                const productPrice = document.createElement('p');
-                productPrice.textContent = `Price: ₹${product.Price}`;
+                    const productImage = document.createElement('img');
+                    productImage.src = product.Image;
+                    productImage.alt = `Product Image: ${product.Brand}`;
 
-                const productRating = document.createElement('p');
-                productRating.textContent = `Rating: ${product.Rating}`;
+                    const productInfo = document.createElement('div');
+                    productInfo.classList.add('product-info');
 
-                const addToWishlistButton = document.createElement('button');
-                addToWishlistButton.textContent = 'Add to Wishlist';
-                addToWishlistButton.classList.add('add-to-wishlist-button');
-                addToWishlistButton.dataset.productName = product.Brand; // Set product name as dataset
+                    const productName = document.createElement('h2');
+                    productName.textContent = product.Brand;
 
-                addToWishlistButton.addEventListener('click', () => {
-                    addToWishlist(product.Brand); // Call addToWishlist function
+                    const productDescription = document.createElement('p');
+                    productDescription.textContent = product["Product Type"];
+
+                    const productPrice = document.createElement('p');
+                    productPrice.textContent = `Price: ₹${product.Price}`;
+
+                    const productRating = document.createElement('p');
+                    productRating.textContent = `Rating: ${product.Rating}`;
+
+                    const addToWishlistButton = document.createElement('button');
+                    addToWishlistButton.textContent = 'Add to Wishlist';
+                    addToWishlistButton.classList.add('add-to-wishlist-button');
+
+                    addToWishlistButton.addEventListener('click', () => {
+                        addToWishlist(product.Brand, product.Image, product["Product Type"], product.Price);
+                    });
+
+                    productInfo.appendChild(productName);
+                    productInfo.appendChild(productDescription);
+                    productInfo.appendChild(productPrice);
+                    productInfo.appendChild(productRating);
+                    productInfo.appendChild(addToWishlistButton);
+
+                    productCard.appendChild(productImage);
+                    productCard.appendChild(productInfo);
+
+                    productContainer.appendChild(productCard);
                 });
+            } else {
+                console.error('Element with ID "productContainer" not found');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+</script>
 
 
-                productInfo.appendChild(productName);
-                productInfo.appendChild(productDescription);
-                productInfo.appendChild(productPrice);
-                productInfo.appendChild(productRating);
-                productInfo.appendChild(addToWishlistButton); // Append Add to Wishlist button
-
-
-                productCard.appendChild(productImage);
-                productCard.appendChild(productInfo);
-
-                productContainer.appendChild(productCard);
-            });
-        } else {
-            console.error('Element with ID "productContainer" not found');
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-    });
-
-    </script>
-     <script src="\js\wishlist.js"></script>
 
     <footer>
         <p>&copy; 2024 Humble Home. All rights reserved.</p>

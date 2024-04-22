@@ -155,12 +155,12 @@
 .heart-icon {
   width: 30px;
   height: 30px;
-  fill: white;
+  fill: red;
   transition: fill 0.3s ease;
 }
 
 .heart-icon:hover {
-  fill: red;
+  fill: white;
 }
 
 .wishlist-btn:focus {
@@ -179,7 +179,7 @@
              <a href="\contact.html">Contact</a>
              <a href="\register.html">Register</a>
              <a href="\products.html" id="menu">Menu</a>
-             <button class="wishlist-btn">
+             <button id="wishlist-btn">
                 <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
@@ -214,141 +214,14 @@
         <p>&copy; 2024 Humble Home. All rights reserved.</p>
     </footer>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const searchForm = document.querySelector('.search-form');
+ <script>
+       const wishlistButton = document.getElementById('wishlist-btn');
 
-            searchForm.addEventListener('submit', function (event) {
-                event.preventDefault(); // Prevent form submission
-                
-                const searchTerm = searchForm.querySelector('.search-input').value.trim().toLowerCase();
-                const allTextNodes = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-                let node;
-                const matchingNodes = [];
+    wishlistButton.addEventListener('click', () => {
+         window.location.href = '/wishlist.html';
+});
 
-                while (node = allTextNodes.nextNode()) {
-                    if (node.parentNode.tagName !== 'SCRIPT' && node.parentNode.tagName !== 'STYLE') {
-                        const textContent = node.textContent.toLowerCase();
-                        if (textContent.includes(searchTerm)) {
-                            matchingNodes.push(node.parentNode);
-                        }
-                    }
-                }
-
-                if (matchingNodes.length > 0) {
-                    matchingNodes.forEach(matchingNode => {
-                        matchingNode.style.backgroundColor = 'yellow';
-                    });
-                } else {
-                    alert('No matches found for your search term.');
-                }
-            });
-        });
-        // Function to search for products on a specific page
-        const ledPageUrl = '/led.html';
-        const towelPageUrl = '/towel.html';
-
-
-// Perform search on LED page
-searchProducts(ledPageUrl)
-    .then(ledData => {
-        displaySearchResults(ledData);
-    })
-    .catch(error => {
-        console.error('Error searching LED products:', error);
-    });
-
-// Perform search on towel page
-searchProducts(towelPageUrl)
-    .then(towelData => {
-        displaySearchResults(towelData);
-    })
-    .catch(error => {
-        console.error('Error searching towel products:', error);
-    });
-
-
-// Function to display search results
-function displaySearchResults(products) {
-    const productContainer = document.getElementById('productContainer');
-    if (productContainer) {
-        products.forEach(product => {
-            // Create product card
-            const productCard = document.createElement('div');
-            productCard.classList.add('product');
-
-            // Create product image
-            const productImage = document.createElement('img');
-            productImage.src = product.Image;
-            productImage.alt = `Product Image: ${product.Brand}`;
-
-            // Create product info container
-            const productInfo = document.createElement('div');
-            productInfo.classList.add('product-info');
-
-            // Create product name
-            const productName = document.createElement('h2');
-            productName.textContent = product.Brand;
-
-            // Create product description
-            const productDescription = document.createElement('p');
-            productDescription.textContent = product["Product Type"];
-
-            // Create product price
-            const productPrice = document.createElement('p');
-            productPrice.textContent = `Price: ₹${product.Price}`;
-
-            // Create product rating
-            const productRating = document.createElement('p');
-            productRating.textContent = `Rating: ${product.Rating}`;
-
-            // Create add to cart button
-            const addToCartButton = document.createElement('button');
-            addToCartButton.textContent = 'Add to Cart';
-            addToCartButton.classList.add('add-to-cart-button');
-            addToCartButton.addEventListener('click', () => {
-                // Add logic to handle adding product to cart
-                console.log(`Added ${product.Brand} to cart`);
-            });
-
-            // Append product info elements to product card
-            productInfo.appendChild(productName);
-            productInfo.appendChild(productDescription);
-            productInfo.appendChild(productPrice);
-            productInfo.appendChild(productRating);
-            productInfo.appendChild(addToCartButton);
-
-            // Append product image and info to product card
-            productCard.appendChild(productImage);
-            productCard.appendChild(productInfo);
-
-            // Append product card to product container
-            productContainer.appendChild(productCard);
-        });
-    } else {
-        console.error('Element with ID "productContainer" not found');
-    }
-}
-
-// Perform search on LED page
-searchProducts('/led.html')
-    .then(ledData => {
-        displaySearchResults(ledData);
-    })
-    .catch(error => {
-        console.error('Error searching LED products:', error);
-    });
-
-// Perform search on towel page
-searchProducts('/towel.html')
-    .then(towelData => {
-        displaySearchResults(towelData);
-    })
-    .catch(error => {
-        console.error('Error searching towel products:', error);
-    });
-
-    </script>
-    <script src="\js\wishlist.js"></script>
+        
+    </script> 
 </body>
 </html>
