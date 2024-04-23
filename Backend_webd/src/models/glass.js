@@ -7,6 +7,6 @@ const productSchema = new mongoose.Schema({
     Price: { type: String, required: true }
 });
 
-const Madhubani = mongoose.model('madhubani', productSchema);
+const glass = mongoose.model('glass', productSchema);
 
-module.exports = Madhubani;
+module.exports = glass;

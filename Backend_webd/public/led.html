@@ -20,7 +20,7 @@
         let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
         // Check if the product is already in the wishlist
-        if (wishlist.find(product => product.Brand === productName)) {
+        if (wishlist.find(product => product.Image === productImage)) {
             alert('This product is already in your wishlist!');
             return;
         }

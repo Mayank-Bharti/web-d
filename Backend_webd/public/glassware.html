@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Towel</title>
+    <title>Glass Ware</title>
     <link rel="stylesheet" href="\css\towel.css">
     <link rel="icon" href="\images\icon.jpg" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="\images\icon.jpg">
 </head>
 <body>
     <header>
-        <h1>Towel Page</h1>
+        <h1>Glass Ware Page</h1>
     </header>
     
     <main id="productContainer"></main>
    <!-- Inside the <body> section of towel.html -->
 
 <script>
-    function addToWishlist(productName, productImage, productDescription, productPrice) {
+    function addToWishlist( productImage, productDescription, productPrice) {
         // Get existing wishlist from local storage or initialize an empty array
         let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
@@ -29,7 +29,7 @@
 
         // If not, add the product to the wishlist
         wishlist.push({ 
-            'Brand': productName,
+            // 'Brand': productName,
             'Image': productImage,
             'Product Type': productDescription,
             'Price': productPrice
@@ -42,7 +42,7 @@
         alert('Product added to wishlist!');
     }
 
-    fetch('/Product')
+    fetch('/glass')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch data');
@@ -58,13 +58,13 @@
 
                     const productImage = document.createElement('img');
                     productImage.src = product.Image;
-                    productImage.alt = `Product Image: ${product.Brand}`;
+                    productImage.alt = `Product Image: ${product["Product Type"]}`;
 
                     const productInfo = document.createElement('div');
                     productInfo.classList.add('product-info');
 
-                    const productName = document.createElement('h2');
-                    productName.textContent = product.Brand;
+                    // const productName = document.createElement('h2');
+                    // productName.textContent = product.Brand;
 
                     const productDescription = document.createElement('p');
                     productDescription.textContent = product["Product Type"];
@@ -80,10 +80,10 @@
                     addToWishlistButton.classList.add('add-to-wishlist-button');
 
                     addToWishlistButton.addEventListener('click', () => {
-                        addToWishlist(product.Brand, product.Image, product["Product Type"], product.Price);
+                        addToWishlist( product.Image, product["Product Type"], product.Price);
                     });
 
-                    productInfo.appendChild(productName);
+                    // productInfo.appendChild(productName);
                     productInfo.appendChild(productDescription);
                     productInfo.appendChild(productPrice);
                     productInfo.appendChild(productRating);

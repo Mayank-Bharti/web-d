@@ -7,6 +7,7 @@ const Register = require("./models/user_register");
 const Product = require("./models/towel"); // Import your towel model
 const LED = require("./models/led"); // Import your Product model
 const Madhubani = require("./models/madhubani");
+const glass = require("./models/glass");
 //const { register } = require("module");
 const port =process.env.port || 3000;
 const staticPath = path.join(__dirname, "../public");
@@ -50,8 +51,19 @@ app.get("/LED", async(req, res) => {
 });
 app.get("/Madhubani", async(req, res) => {
     try {
-        // Fetch all items from the "product" collection in MongoDB
+        // Fetch all items from the "madhubani" collection in MongoDB
         const products = await Madhubani.find({});
+        // Send the items data as a JSON response to the frontend
+        res.json(products);
+    } catch (error) {
+        console.error('Error fetching items:', error);
+        res.status(500).json({ error: 'An error occurred while fetching items' });
+    }
+});
+app.get("/glass", async(req, res) => {
+    try {
+        // Fetch all items from the "madhubani" collection in MongoDB
+        const products = await glass.find({});
         // Send the items data as a JSON response to the frontend
         res.json(products);
     } catch (error) {

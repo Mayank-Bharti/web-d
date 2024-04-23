@@ -4,9 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Wishlist</title>
-    <link rel="stylesheet" href="\css\towel.css">
+    <!-- <link rel="stylesheet" href="\css\towel.css"> -->
     <link rel="icon" href="\images\icon.jpg" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="\images\icon.jpg">
+    <style>
+        /* CSS for the Wishlist Page */
+
+/* Styling for the Wishlist Header */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling for the Wishlist Items */
+.wishlist-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.wishlist-item h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.wishlist-item img {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    float: left;
+    border-radius: 5px;
+}
+
+.wishlist-item p {
+    margin: 0;
+}
+
+/* Styling for the Remove from Wishlist Button */
+.wishlist-item button {
+    background-color: #ff6666;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.wishlist-item button:hover {
+    background-color: #cc0000;
+}
+#totalPrice {
+    text-align: center;
+    font-size: 24px; /* Adjust the font size as needed */
+}
+
+#totalPrice strong {
+    font-weight: bold;
+}
+
+    </style>
 </head>
 <body>
     <header>
