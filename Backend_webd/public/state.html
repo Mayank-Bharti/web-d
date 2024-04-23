@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products - Humble Home</title>
+    <link rel="stylesheet" href="\css\products.css">
+    <link rel="icon" href="\images\icon.jpg" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="\images\icon.jpg">
+
+</head>
+<body>
+
+    <header>
+        <h1>Our State wise Home Decor items</h1>
+        <nav>
+            <ul>
+                <li><a href="\index.html">Home</a></li>
+                <li><a href="\about.html">About</a></li>
+                <li><a href="\contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="product">
+            <img src="\images\bihar.jpg" alt="Kitchen">
+            <div class="product-info">
+                <h2>Bihar</h2>
+                <p>Know its Rich culture Heritage...</p>
+                <button class="view-btn" onclick="toggleDropdown(this)">View</button>
+                <div class="dropdown-content">
+                    <ul>
+                        <button id="Madhubani">Madhubani Painting</button>
+                        <button>Sikki grass craft</button>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="\images\UP.jpg" alt="bath">
+            <div class="product-info">
+                <h2>Uttar-Pradesh</h2>
+                <p>Emerge yourself into Devotional craft...</p>
+                <button class="view-btn" onclick="toggleDropdown(this)">View</button>
+                <div class="dropdown-content">
+                    <ul>
+                        <button>Carpets and durries</button>
+                        <button id="glass">Glass ware</button>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+      
+        <button class="more-button" onclick="redirectToLoginPage()">More &gt;&gt;&gt;</button>
+        
+    </main>
+  
+
+    <footer>
+        <p>&copy; 2024 Humble Home. All rights reserved.</p>
+    </footer>
+    <script>
+        // JavaScript function to toggle dropdown
+        function toggleDropdown(button) {
+            let dropdownContent = button.nextElementSibling;
+            dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+        }
+    </script>
+     <script>
+        // JavaScript function to redirect to login page
+        function redirectToLoginPage() {
+            window.location.href = "\loginpage.html"; // Replace "login.html" with the actual path to your login page
+        }
+    </script>
+    <script>
+        const towelButton = document.getElementById('Towel');
+       // const itemsList = document.getElementById('itemsList');
+
+        towelButton.addEventListener('click',  () => {
+            window.location.href = '/towel.html'; 
+         
+        });
+        
+ </script> 
+  <script>
+    const Madhubani = document.getElementById('Madhubani');
+   // const itemsList = document.getElementById('itemsList');
+
+    Madhubani.addEventListener('click',  () => {
+        window.location.href = '/madhubani.html'; 
+     
+    });
+    
+</script> 
+     
+</body>
+</html>
