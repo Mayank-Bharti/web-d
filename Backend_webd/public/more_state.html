@@ -12,7 +12,7 @@
 <body>
 
     <header>
-        <h1>Our State wise Home Decor items</h1>
+        <h1>Our State wise home decor items</h1>
         <nav>
             <ul>
                 <li><a href="\index.html">Home</a></li>
@@ -23,6 +23,37 @@
     </header>
 
     <main>
+       
+        <div class="product">
+            <img src="\images\rajasthan.jpg" alt="bath">
+            <div class="product-info">
+                <h2>Rajasthan</h2>
+                <p>Let's dive into majestic fort and cultural heritage...</p>
+                <button class="view-btn" onclick="toggleDropdown(this)">View</button>
+                <div class="dropdown-content">
+                    <ul>
+                        <button>Pottery</button>
+                        <button id="wall">Wall Art</button>
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="product">
+            <img src="\images\kashmir.jpg" alt="Bedding">
+            <div class="product-info">
+                <h2>Jammu & Kashmir</h2>
+                <p>offering a blend of adventure, spirituality, and natural beauty...</p>
+                <button class="view-btn" onclick="toggleDropdown(this)">View</button>
+                <div class="dropdown-content">
+                    <ul>
+                        <button id="paper">Paper Mache</button>
+                        <button >Carpets</button>
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div class="product">
             <img src="\images\bihar.jpg" alt="Kitchen">
             <div class="product-info">
@@ -54,9 +85,7 @@
                 </div>
             </div>
         </div>
-      
-        <button class="more-button" onclick="redirectToLoginPage()">More &gt;&gt;&gt;</button>
-        
+       
     </main>
   
 
@@ -70,32 +99,46 @@
             dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
         }
     </script>
-     <script>
-        // JavaScript function to redirect to login page
-        function redirectToLoginPage() {
-            window.location.href = "\login_state.html"; // Replace "login.html" with the actual path to your login page
-        }
-    </script>
-    <script>
-        const glassbutton = document.getElementById('glass');
+      <script>
+        const paperButton = document.getElementById('paper');
        // const itemsList = document.getElementById('itemsList');
 
-        glassbutton.addEventListener('click',  () => {
-            window.location.href = '/glassware.html'; 
+        paperButton.addEventListener('click',  () => {
+            window.location.href = '/paper.html'; 
          
         });
         
  </script> 
-  <script>
-    const Madhubani = document.getElementById('Madhubani');
+ <script>
+    const wallbutton = document.getElementById('wall');
    // const itemsList = document.getElementById('itemsList');
 
-    Madhubani.addEventListener('click',  () => {
-        window.location.href = '/madhubani.html'; 
+    wallbutton.addEventListener('click',  () => {
+        window.location.href = '/wall.html'; 
      
     });
     
 </script> 
+<script>
+    const glassbutton = document.getElementById('glass');
+   // const itemsList = document.getElementById('itemsList');
+
+    glassbutton.addEventListener('click',  () => {
+        window.location.href = '/glassware.html'; 
      
+    });
+    
+</script> 
+<script>
+const Madhubani = document.getElementById('Madhubani');
+// const itemsList = document.getElementById('itemsList');
+
+Madhubani.addEventListener('click',  () => {
+    window.location.href = '/madhubani.html'; 
+ 
+});
+
+</script> 
 </body>
 </html>
+

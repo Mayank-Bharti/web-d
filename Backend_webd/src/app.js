@@ -8,6 +8,8 @@ const Product = require("./models/towel"); // Import your towel model
 const LED = require("./models/led"); // Import your Product model
 const Madhubani = require("./models/madhubani");
 const glass = require("./models/glass");
+const wall = require("./models/wall");
+const paper = require("./models/paper");
 //const { register } = require("module");
 const port =process.env.port || 3000;
 const staticPath = path.join(__dirname, "../public");
@@ -72,6 +74,29 @@ app.get("/glass", async(req, res) => {
     }
 });
 
+app.get("/wall", async(req, res) => {
+    try {
+        // Fetch all items from the "madhubani" collection in MongoDB
+        const products = await wall.find({});
+        // Send the items data as a JSON response to the frontend
+        res.json(products);
+    } catch (error) {
+        console.error('Error fetching items:', error);
+        res.status(500).json({ error: 'An error occurred while fetching items' });
+    }
+});
+app.get("/paper", async(req, res) => {
+    try {
+        // Fetch all items from the "madhubani" collection in MongoDB
+        const products = await paper.find({});
+        // Send the items data as a JSON response to the frontend
+        res.json(products);
+    } catch (error) {
+        console.error('Error fetching items:', error);
+        res.status(500).json({ error: 'An error occurred while fetching items' });
+    }
+});
+
 app.post("/Register", async(req, res) => {
     try{
         const registers = new Register({
@@ -99,6 +124,21 @@ app.get("/verify-email", async (req, res) => {
         const isEmailRegistered = await Register.exists({ email });
         if (isEmailRegistered) {
             res.json({ redirectTo: '../new_product.html' }); // Redirect to register page if email is registered
+        } else {
+            res.json({ redirectTo: '../register.html' }); // Redirect to products page if email is not registered
+        }
+    } catch (error) {
+        console.error('Error verifying email:', error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+app.get("/verifyemail", async (req, res) => {
+    const email = req.query.email;
+
+    try {
+        const isEmailRegistered = await Register.exists({ email });
+        if (isEmailRegistered) {
+            res.json({ redirectTo: '../more_state.html' }); // Redirect to register page if email is registered
         } else {
             res.json({ redirectTo: '../register.html' }); // Redirect to products page if email is not registered
         }
