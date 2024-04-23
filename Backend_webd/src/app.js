@@ -1,7 +1,7 @@
 const express =require("express");
 const path=require("path");
 const app =express();
-const hbs=require("hbs");
+// const hbs=require("hbs");
 require("./db/conn");
 const Register = require("./models/user_register");
 const Product = require("./models/towel"); // Import your towel model
