@@ -8,63 +8,148 @@
     <link rel="icon" href="\images\icon.jpg" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="\images\icon.jpg">
     <style>
-        /* CSS for the Wishlist Page */
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
 
-/* Styling for the Wishlist Header */
-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        header {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
 
-/* Styling for the Wishlist Items */
-.wishlist-item {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
+        h1 {
+            margin: 0;
+        }
 
-.wishlist-item h2 {
-    font-size: 20px;
-    margin-bottom: 5px;
-}
+        #wishlistContainer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-.wishlist-item img {
-    width: 100px;
-    height: 100px;
-    margin-right: 10px;
-    float: left;
-    border-radius: 5px;
-}
+        .wishlist-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
 
-.wishlist-item p {
-    margin: 0;
-}
+        .wishlist-item h2 {
+            margin-top: 0;
+        }
 
-/* Styling for the Remove from Wishlist Button */
-.wishlist-item button {
-    background-color: #ff6666;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+        .wishlist-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            margin-right: 20px;
+            float: left;
+        }
 
-.wishlist-item button:hover {
-    background-color: #cc0000;
-}
-#totalPrice {
-    text-align: center;
-    font-size: 24px; /* Adjust the font size as needed */
-}
+        .wishlist-item p {
+            margin: 0;
+            margin-bottom: 10px;
+        }
 
-#totalPrice strong {
-    font-weight: bold;
-}
+        .wishlist-item button {
+            background-color: #ff6666;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
+        .wishlist-item button:hover {
+            background-color: #cc0000;
+        }
+
+        #totalPrice {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #formContainer {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+    
+        }
+
+        #userInfoForm label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #userInfoForm input[type="text"],
+        #userInfoForm input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .submit {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            background-color: #45a049;
+        }
+        .submit:hover{
+            background-color: darkgreen;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+
+        .pay {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .pay:hover {
+            background-color: darkgreen;
+        }
+        .dropdown-content form {
+           display: none;
+        }
+        form {
+          max-width: 400px; 
+          margin: 0 auto; 
+}
     </style>
+
 </head>
 <body>
     <header>
@@ -73,11 +158,71 @@ header {
     
     <main id="wishlistContainer"></main>
     <p id="totalPrice"></p>
+    <div class="payContainer">
+        <button class="pay" onclick="toggleForm()">Proceed to Pay</button>
+        <div class="dropdown-content">
+            <form id="userInfoForm">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required><br><br>
+        
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required><br><br>
+        
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required><br><br>
+        
+                <label for="pincode">Pin Code:</label>
+                <input type="text" id="pincode" name="pincode" required><br><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br><br>
+                <input type="submit" class="submit" value="Submit">
+            </form>
+            <div class="payment"style="display: none;">
+                <form id="pay_option"  style="display: none;">
+                    <input type="radio" id="payOnDelivery" name="paymentMethod" value="payOnDelivery">
+                    <label for="payOnDelivery">Pay On Delivery</label><br>
+                    
+                    <input type="radio" id="qrCode" name="paymentMethod" value="qrCode">
+                    <label for="qrCode">QR Code Payment</label><br>
+                    
+                    <input type="radio" id="payOnline" name="paymentMethod" value="payOnline">
+                    <label for="payOnline">Pay Online</label><br>
 
-    <footer>
+                    <input type="submit" id="submit" name="submit"value="Order placed">
+                    <label for="submit"></label><br>
+                </form>
+            </div>
+    </div>
+    </div>
+   <footer>
         <p>&copy; 2024 Humble Home. All rights reserved.</p>
     </footer>
 
     <script src="\js\wishlist.js"></script>
-</body>
+    <script>
+        function toggleForm() {
+            var formContainer = document.getElementById("userInfoForm");
+            formContainer.style.display = (formContainer.style.display === "block") ? "none" : "block";
+        }
+    
+        document.getElementById("userInfoForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+            var firstName = document.getElementById("firstName").value;
+            var lastName = document.getElementById("lastName").value;
+            var address = document.getElementById("address").value;
+            var pincode = document.getElementById("pincode").value;
+            var email = document.getElementById("email").value;
+    
+            if (firstName === "" || lastName === "" || address === "" || pincode === "" || email === "") {
+                alert("Please fill in all fields before proceeding.");
+                return false;
+            }
+    
+            // Display payment options form
+            var paymentContainer = document.querySelector(".payment");
+            paymentContainer.style.display = "block";
+        });
+    </script>
+    
+    </body>
 </html>
