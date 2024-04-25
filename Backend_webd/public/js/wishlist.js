@@ -67,3 +67,5 @@ function renderWishlist() {
 
 // Call renderWishlist function to initially render wishlist items
 renderWishlist();
+
+

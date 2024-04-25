@@ -10,6 +10,8 @@ const Madhubani = require("./models/madhubani");
 const glass = require("./models/glass");
 const wall = require("./models/wall");
 const paper = require("./models/paper");
+const User = require('./models/user');
+// const Email = require('./models/email');
 //const { register } = require("module");
 const port =process.env.port || 3000;
 const staticPath = path.join(__dirname, "../public");
@@ -28,6 +30,9 @@ app.get("/", (req, res) => {
 
 app.get("/Register", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/register.html"));
+});
+app.get("/User", (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/wishlist.html"));
 });
 
 app.get("/Product", async(req, res) => {
@@ -97,7 +102,30 @@ app.get("/paper", async(req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching items' });
     }
 });
-
+app.post('/User', async (req, res) => {
+    try {
+      // Create a new wishlist item
+      const newUser = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        pincode: req.body.pincode,
+        // countryCode: parseInt(req.body.countryCode),
+        // phone: parseInt(req.body.phone),
+        countryCode: req.body.countryCode,
+        phone: req.body.phone,
+        email: req.body.email,
+        paymentMethod: req.body.paymentMethod
+      });
+  
+      // Save the new wishlist item to the database
+      const user = await newUser.save();
+    //  res.status(201).sendFile(path.join(__dirname, "../public/orderplaced.html"));
+    res.redirect('/orderplaced.html');
+    } catch (error) {
+      res.status(500).send('An error occurred while saving the wishlist item.');
+    }
+  });
 app.post("/Register", async(req, res) => {
     try{
         const registers = new Register({

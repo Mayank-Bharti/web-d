@@ -93,7 +93,16 @@
         }
 
         #userInfoForm input[type="text"],
-        #userInfoForm input[type="email"] {
+        #userInfoForm input[type="email"],
+        #userInfoForm input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        #countryCode{
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -161,67 +170,92 @@
     <div class="payContainer">
         <button class="pay" onclick="toggleForm()">Proceed to Pay</button>
         <div class="dropdown-content">
-            <form id="userInfoForm">
+            <form id="userInfoForm" action="/User" method="POST">
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" name="firstName" required><br><br>
-        
+    
                 <label for="lastName">Last Name:</label>
                 <input type="text" id="lastName" name="lastName" required><br><br>
-        
+    
                 <label for="address">Address:</label>
                 <input type="text" id="address" name="address" required><br><br>
-        
+    
                 <label for="pincode">Pin Code:</label>
                 <input type="text" id="pincode" name="pincode" required><br><br>
+                <label for="mobile"></label>
+    <select id="countryCode"name="countryCode"required>
+        <option abled selected>Country Code</option>
+        <option>91</option>
+        <option>92</option>
+        <option>93</option>
+        <option>94</option>
+        <option>95</option>
+        <option>96</option>
+        <option>101</option>
+        <option>97</option>
+        <option>98</option>
+        <option>99</option>
+        <option>100</option>
+        <option>102</option>
+      </select>
+      <input type="tel"id="phone"name="phone"placeholder="phone:99876####"required>
+    </br>
+</br>
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required><br><br>
-                <input type="submit" class="submit" value="Submit">
+                <input type="radio" id="payOnDelivery" name="paymentMethod" value="payOnDelivery">
+                <label for="payOnDelivery">Pay On Delivery</label><br>
+    
+                <input type="radio" id="qrCode" name="paymentMethod" value="qrCode">
+                <label for="qrCode">QR Code Payment</label><br>
+    
+                <input type="radio" id="payOnline" name="paymentMethod" value="payOnline">
+                <label for="payOnline">Pay Online</label><br>
+                <input type="submit" class="submit"name="submit"value="Place Order">
             </form>
-            <div class="payment"style="display: none;">
-                <form id="pay_option"  style="display: none;">
-                    <input type="radio" id="payOnDelivery" name="paymentMethod" value="payOnDelivery">
-                    <label for="payOnDelivery">Pay On Delivery</label><br>
-                    
-                    <input type="radio" id="qrCode" name="paymentMethod" value="qrCode">
-                    <label for="qrCode">QR Code Payment</label><br>
-                    
-                    <input type="radio" id="payOnline" name="paymentMethod" value="payOnline">
-                    <label for="payOnline">Pay Online</label><br>
-
-                    <input type="submit" id="submit" name="submit"value="Order placed">
-                    <label for="submit"></label><br>
-                </form>
-            </div>
+        </div>
     </div>
-    </div>
-   <footer>
+    <footer>
         <p>&copy; 2024 Humble Home. All rights reserved.</p>
     </footer>
-
+    
     <script src="\js\wishlist.js"></script>
     <script>
         function toggleForm() {
-            var formContainer = document.getElementById("userInfoForm");
-            formContainer.style.display = (formContainer.style.display === "block") ? "none" : "block";
+        var formContainer = document.getElementById("userInfoForm");
+        formContainer.style.display = (formContainer.style.display === "block") ? "none" : "block";
+    }
+
+    document.getElementById("userInfoForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+        var firstName = document.getElementById("firstName").value;
+        var lastName = document.getElementById("lastName").value;
+        var address = document.getElementById("address").value;
+        var pincode = document.getElementById("pincode").value;
+        var countryCode = document.getElementById("countryCode").value;
+        var phone = document.getElementById("phone").value;
+        var email = document.getElementById("email").value;
+        var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+        if (firstName === "" || lastName === "" || address === "" || pincode === "" ||countryCode===""||phone===""|| email === "") {
+            alert("Please fill in all fields before proceeding.");
+            return false;
         }
-    
-        document.getElementById("userInfoForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent default form submission
-            var firstName = document.getElementById("firstName").value;
-            var lastName = document.getElementById("lastName").value;
-            var address = document.getElementById("address").value;
-            var pincode = document.getElementById("pincode").value;
-            var email = document.getElementById("email").value;
-    
-            if (firstName === "" || lastName === "" || address === "" || pincode === "" || email === "") {
-                alert("Please fill in all fields before proceeding.");
-                return false;
-            }
-    
-            // Display payment options form
-            var paymentContainer = document.querySelector(".payment");
-            paymentContainer.style.display = "block";
-        });
+
+  var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/User', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+         toggleForm(); // Hide the form after successful submission
+        alert('Your order has been placed. Thank you!');
+         window.location.href = '/orderplaced.html'; // Redirect to the orderplaced.html page
+      } else {
+        alert('An error occurred while placing the order. Please try again later.');
+      }
+    };
+    xhr.send(`firstName=${firstName}&lastName=${lastName}&address=${address}&pincode=${pincode}&countryCode=${countryCode}&phone=${phone}&email=${email}&paymentMethod=${paymentMethod}`);
+  });
     </script>
     
     </body>
