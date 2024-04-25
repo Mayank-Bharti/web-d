@@ -110,10 +110,8 @@ app.post('/User', async (req, res) => {
         lastName: req.body.lastName,
         address: req.body.address,
         pincode: req.body.pincode,
-        // countryCode: parseInt(req.body.countryCode),
-        // phone: parseInt(req.body.phone),
-        countryCode: req.body.countryCode,
-        phone: req.body.phone,
+        countryCode: parseInt(req.body.countryCode),
+        phone: parseInt(req.body.phone),
         email: req.body.email,
         paymentMethod: req.body.paymentMethod
       });
