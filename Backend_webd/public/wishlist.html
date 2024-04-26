@@ -171,6 +171,7 @@
         <button class="pay" onclick="toggleForm()">Proceed to Pay</button>
         <div class="dropdown-content">
             <form id="userInfoForm" action="/User" method="POST">
+
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" name="firstName" required><br><br>
     
@@ -208,9 +209,10 @@
     
                 <input type="radio" id="qrCode" name="paymentMethod" value="qrCode">
                 <label for="qrCode">QR Code Payment</label><br>
-    
-                <input type="radio" id="payOnline" name="paymentMethod" value="payOnline">
-                <label for="payOnline">Pay Online</label><br>
+               
+               
+                    <script id="payOnline" name="paymentMethod" src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_O1bWfWqEYMeKK7" async></script>
+                <br>
                 <input type="submit" class="submit"name="submit"value="Place Order">
             </form>
         </div>
@@ -226,36 +228,92 @@
         formContainer.style.display = (formContainer.style.display === "block") ? "none" : "block";
     }
 
-    document.getElementById("userInfoForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent default form submission
-        var firstName = document.getElementById("firstName").value;
-        var lastName = document.getElementById("lastName").value;
-        var address = document.getElementById("address").value;
-        var pincode = document.getElementById("pincode").value;
-        var countryCode = document.getElementById("countryCode").value;
-        var phone = document.getElementById("phone").value;
-        var email = document.getElementById("email").value;
-        var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+    // Function to handle form submission
+// Function to handle form submission
+function handleSubmit(event) {
+    event.preventDefault(); // Prevent default form submission
 
-        if (firstName === "" || lastName === "" || address === "" || pincode === "" ||countryCode===""||phone===""|| email === "") {
-            alert("Please fill in all fields before proceeding.");
-            return false;
-        }
+    // Collect form data
+    var firstName = document.getElementById("firstName").value;
+    var lastName = document.getElementById("lastName").value;
+    var address = document.getElementById("address").value;
+    var pincode = document.getElementById("pincode").value;
+    var countryCode = document.getElementById("countryCode").value;
+    var phone = document.getElementById("phone").value;
+    var email = document.getElementById("email").value;
+    var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
 
-  var xhr = new XMLHttpRequest();
+    // Validate form data
+    if (firstName === "" || lastName === "" || address === "" || pincode === "" || countryCode === "" || phone === "" || email === "") {
+        alert("Please fill in all fields before proceeding.");
+        return false;
+    }
+
+    // Check payment method
+    if (paymentMethod === "payOnDelivery") {
+        // For "Pay on Delivery", submit the form and redirect to order placed page
+        submitForm(firstName, lastName, address, pincode, countryCode, phone, email, paymentMethod);
+    } else if (paymentMethod === "qrCode") {
+        // For "QR Code", display QR code and submit the form after payment
+        displayQRCode();
+        submitForm(firstName, lastName, address, pincode, countryCode, phone, email, paymentMethod);
+    } else {
+        // For other payment methods, show alert and do not submit form
+        alert("Payment method other than 'Pay on Delivery' or 'QR Code' is not supported yet.");
+    }
+}
+
+// Function to submit the form data
+function submitForm(firstName, lastName, address, pincode, countryCode, phone, email, paymentMethod) {
+    // Collect wishlist items information
+    var wishlistItems = [];
+    var wishlistContainers = document.getElementsByClassName("wishlist-item");
+    for (var i = 0; i < wishlistContainers.length; i++) {
+        var item = {};
+        item.name = wishlistContainers[i].querySelector("h2").innerText;
+        item.price = wishlistContainers[i].querySelector("p").innerText.split('₹')[1]; // Extract price
+        // Add more item information here as needed
+        wishlistItems.push(item);
+    }
+
+    // Send form data and wishlist items to the server
+    var xhr = new XMLHttpRequest();
     xhr.open('POST', '/User', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function() {
-      if (xhr.status === 200) {
-         toggleForm(); // Hide the form after successful submission
-        alert('Your order has been placed. Thank you!');
-         window.location.href = '/orderplaced.html'; // Redirect to the orderplaced.html page
-      } else {
-        alert('An error occurred while placing the order. Please try again later.');
-      }
+        if (xhr.status === 200) {
+            alert('Your order has been placed. Thank you!');
+            window.location.href = '/orderplaced.html'; // Redirect to the orderplaced.html page
+        } else {
+            alert('An error occurred while placing the order. Please try again later.');
+        }
     };
-    xhr.send(`firstName=${firstName}&lastName=${lastName}&address=${address}&pincode=${pincode}&countryCode=${countryCode}&phone=${phone}&email=${email}&paymentMethod=${paymentMethod}`);
-  });
+    xhr.send(JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        address: address,
+        pincode: pincode,
+        countryCode: countryCode,
+        phone: phone,
+        email: email,
+        paymentMethod: paymentMethod,
+        wishlistItems: wishlistItems
+    }));
+}
+
+// Function to display QR code
+function displayQRCode() {
+    // Replace this with your QR code display logic
+   // Function to display QR code
+    // Replace this with your QR code generation and display logic
+    var qrCodeContainer = document.createElement('div');
+    qrCodeContainer.innerHTML = '<img src="/images/QRcode.jpg" alt="QR Code">';
+    document.body.appendChild(qrCodeContainer);
+}
+
+// Add event listener for form submission
+document.getElementById("userInfoForm").addEventListener("submit", handleSubmit);
+
     </script>
     
     </body>

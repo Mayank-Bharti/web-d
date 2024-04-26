@@ -104,26 +104,33 @@ app.get("/paper", async(req, res) => {
 });
 app.post('/User', async (req, res) => {
     try {
-      // Create a new wishlist item
-      const newUser = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        address: req.body.address,
-        pincode: req.body.pincode,
-        countryCode: parseInt(req.body.countryCode),
-        phone: parseInt(req.body.phone),
-        email: req.body.email,
-        paymentMethod: req.body.paymentMethod
-      });
-  
-      // Save the new wishlist item to the database
-      const user = await newUser.save();
-    //  res.status(201).sendFile(path.join(__dirname, "../public/orderplaced.html"));
-    res.redirect('/orderplaced.html');
+        const { firstName, lastName, address, pincode, countryCode, phone, email, paymentMethod} = req.body;
+
+        // Save user information to the user collection
+        const newUser = new User({
+            firstName,
+            lastName,
+            address,
+            pincode,
+            countryCode,
+            phone,
+            email,
+            paymentMethod
+        });
+        const user = await newUser.save();
+
+        // Save wishlist items along with user information
+        // Assuming there's a wishlistItems field in the User model to store this information
+        // user.wishlistItems = wishlistItems;
+        await user.save();
+
+        res.status(200).send('Order placed successfully');
     } catch (error) {
-      res.status(500).send('An error occurred while saving the wishlist item.');
+        console.error('Error placing order:', error);
+        res.status(500).send('An error occurred while placing the order.');
     }
-  });
+});
+
 app.post("/Register", async(req, res) => {
     try{
         const registers = new Register({
