@@ -58,4 +58,6 @@ To run this project locally, follow these steps:
 - Email: mayankbharti349@gmail.com
 - Email: 22cs3029@rgipt.ac.in
 - GitHub: https://github.com/Mayank-Bharti/
+- GitHub: https://github.com/ishika-pandey
 - LinkedIn: www.linkedin.com/in/mayank-bharti-839b07261
+
