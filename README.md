@@ -47,11 +47,20 @@ To run this project locally, follow these steps:
    ### Navigate to http://localhost:3000
 
 ## Screenshots
-![Screenshot 2024-10-21 000143](https://github.com/user-attachments/assets/12987f41-6ac7-4a97-95ad-0050386acf0a)
-![Screenshot 2024-10-21 000200](https://github.com/user-attachments/assets/1d57c81c-a9fb-4045-b1ab-3ce826ed365a)
-![Screenshot 2024-10-21 000307](https://github.com/user-attachments/assets/6a9b0f77-d638-4fbe-b56a-f43c33fb43d0)
-![Screenshot 2024-10-21 000341](https://github.com/user-attachments/assets/3826adef-bc8e-4232-bd65-4223eecd3b3d)
-![Screenshot 2024-10-21 000410](https://github.com/user-attachments/assets/e50bf909-b0e7-4db8-a4b1-eed689ad6e34)
+
+![Screenshot 2024-11-08 232146](https://github.com/user-attachments/assets/299a037c-97a5-4a3f-8122-15edd7056b9c)
+![Screenshot 2024-11-08 232208](https://github.com/user-attachments/assets/b14b8ace-ad67-4e9c-877a-92b516eab7ae)
+![Screenshot 2024-11-08 232237](https://github.com/user-attachments/assets/2a0dabae-7077-449b-8b0f-980e02d622cb)
+![Screenshot 2024-11-08 232253](https://github.com/user-attachments/assets/1da3ca8f-1a7d-4c45-99bc-7fa78b1e02c8)
+![Screenshot 2024-11-08 232329](https://github.com/user-attachments/assets/1a3e8f6e-23dc-4862-8b08-b497037e8093)
+![Screenshot 2024-11-08 232350](https://github.com/user-attachments/assets/24de1e81-bbb0-42b8-96da-91c375c7f814)
+![Screenshot 2024-11-08 232415](https://github.com/user-attachments/assets/3eab6f7a-15f3-4d3d-96e4-666338812ee4)
+![Screenshot 2024-11-08 232434](https://github.com/user-attachments/assets/14e36bfb-0ce7-4469-8ce1-95df0c37ba2b)
+![Screenshot 2024-11-08 232449](https://github.com/user-attachments/assets/8e21a1fd-5a7e-40a0-ac80-982b57e3d7fc)
+![Screenshot 2024-11-08 232518](https://github.com/user-attachments/assets/e147e3e7-7cb5-4bc6-a63c-8ab131d3e093)
+![Screenshot 2024-11-08 232649](https://github.com/user-attachments/assets/f16df149-37d5-425b-91a5-0e2ba2a1c9f0)
+![Screenshot 2024-11-08 232743](https://github.com/user-attachments/assets/f5d7c1b6-e62d-4630-a095-98ebaf9347a5)
+
 
 ## Contact
 ### If you have any doubts or suggestions you can always reach out to me from the ways mentioned below:
